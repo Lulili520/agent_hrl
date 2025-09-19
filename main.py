@@ -31,13 +31,23 @@ def main():
     obs, info = env.reset()
     admissible_commands = list(info['admissible_commands'])
 
+    hlp = HLP_net()
+    llp = LLP_net()
+
     for turn in range(5):
         step = 0
+        memory = []
         history = High_prompt_template.format(observation=obs, option1="locate", option2="", option3=, option4=)
         while step <= 200:
+            step += 1
+            hlp_observation, option = hlp.take_action(history)
             
-
-    print(admissible_commands)
+            history = history + Low_prompt_template.format(observation=obs)
+            
+            actions = llp.generate(history)
+            
+            
+    
 
 if __name__ == "__main__":
     main()
